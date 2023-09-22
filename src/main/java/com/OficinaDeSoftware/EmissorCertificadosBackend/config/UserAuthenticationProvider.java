@@ -39,7 +39,7 @@ public class UserAuthenticationProvider {
     public String createToken( UserDto user ){
 
         Date now = new Date();
-        Date validity = validyToken( now );
+        Date validity = dtValidyToken( now );
 
         Algorithm algorithm = Algorithm.HMAC256(secretKey);
         return JWT.create()
@@ -49,7 +49,7 @@ public class UserAuthenticationProvider {
                 .sign(algorithm);
     }
 
-    public Date validyToken( Date now ){
+    public Date dtValidyToken( Date now ){
         int oneHourInMilliseconds = 3600000;
         return new Date( now.getTime() + oneHourInMilliseconds );
     }
