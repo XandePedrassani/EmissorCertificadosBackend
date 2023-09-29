@@ -10,6 +10,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Component;
 
@@ -24,9 +25,8 @@ import jakarta.annotation.PostConstruct;
 @Component
 public class UserAuthenticationProvider {
     
-    // TODO ajustar para pegar do application.properties 
-    // @Value("${security.jwt.token.secret-key:secret-key}")
-    private String secretKey = "BATATINHA123";
+    @Value("${security.jwt.token.secret-key}")
+    private String secretKey;
 
     @Autowired
     private AuthenticationService authenticationService; 
@@ -49,6 +49,7 @@ public class UserAuthenticationProvider {
                 .sign(algorithm);
     }
 
+    // TODO substituir pela mesma data do acess_token do provider 
     public Date dtValidyToken( Date now ){
         int oneHourInMilliseconds = 3600000;
         return new Date( now.getTime() + oneHourInMilliseconds );

@@ -11,19 +11,20 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.gson.GsonFactory;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 
 @Service
+@Qualifier("googleProviderTokenService")
 public class GoogleProviderTokenService implements ProviderTokenService {
 
-    // TODO trocar por valor do application.properties 
-    // @Value("${spring.security.oauth2.client.registration.google.clientId}")
-    private String clientID = "";
+    @Value("${spring.security.oauth2.client.registration.google.clientId}")
+    private String clientID;
 
     @Override 
     public ProviderModel process( String tokenID ) throws RuntimeException {
 
-        GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(), new GsonFactory())
+        final GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(), new GsonFactory())
         .setAudience(Collections.singletonList( clientID ) )
         .build();
 
@@ -40,7 +41,7 @@ public class GoogleProviderTokenService implements ProviderTokenService {
             throw new RuntimeException("ID Token invalid");
         }
 
-        Payload payload = idToken.getPayload();
+        final Payload payload = idToken.getPayload();
 
         final ProviderModel providerModel = ProviderModel.builder()
         .name( payload.get("name").toString() )
