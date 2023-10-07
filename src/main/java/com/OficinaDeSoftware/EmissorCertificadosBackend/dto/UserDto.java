@@ -15,7 +15,7 @@ public class UserDto {
 
     private String name;
 
-    private String token;
+    private String accessToken;
 
     public UserDto( String nrUuid, String email, String name ){
         this.nrUuid = nrUuid;

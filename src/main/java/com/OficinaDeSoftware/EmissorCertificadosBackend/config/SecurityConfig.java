@@ -35,7 +35,8 @@ public class SecurityConfig {
                 .and()
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers(HttpMethod.POST, "/api/auth/signIn").permitAll()
-                        .anyRequest().authenticated());
+                        .requestMatchers("/v3/**", "/swagger-ui/**").permitAll()
+                        .anyRequest().authenticated() );
         return http.build();
     }
 }
