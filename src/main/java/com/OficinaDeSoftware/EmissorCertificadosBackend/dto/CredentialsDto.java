@@ -12,14 +12,14 @@ public class CredentialsDto {
     @Value("#( T(com.example.enums.Property).parse('${custom.property}') )")
     private ProviderEnum typeProvider;
 
-    private String token;
+    private String idToken;
 
     public CredentialsDto() {
         super();
     }
 
-    public CredentialsDto( String token, ProviderEnum typeProvider ) {
-        this.token = token;
+    public CredentialsDto( String idToken, ProviderEnum typeProvider ) {
+        this.idToken = idToken;
         this.typeProvider = typeProvider;
     }
 }

@@ -32,7 +32,7 @@ public class AuthenticationService {
             throw new RuntimeException("Unknow provider");
         }
 
-        final ProviderModel provider = providerTokenService.process( credentialsDto.getToken() );
+        final ProviderModel provider = providerTokenService.process( credentialsDto.getIdToken() );
 
         // TODO trocar por ModelMapper 
         final UserDto userDto = new UserDto( provider.getNrUuid(), provider.getEmail(), provider.getName() );
