@@ -15,7 +15,7 @@ public class ModelMapperConfig {
         ModelMapper modelMapper = new ModelMapper();
 
         modelMapper.createTypeMap( User.class, UserDto.class )
-        .<String>addMapping( src -> src.getNrUuid(), (dest, value ) -> dest.setNrUuid(value) );
+        .<String>addMapping( src -> src.getNrUuid(), ( dest, value ) -> dest.setNrUuid( value ) );
 
         return modelMapper;
     }
