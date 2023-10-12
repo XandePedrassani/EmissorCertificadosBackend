@@ -1,8 +1,10 @@
 package com.OficinaDeSoftware.EmissorCertificadosBackend.config;
 
+import java.util.Arrays;
 import java.util.Base64;
-import java.util.Collections;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
@@ -15,9 +17,13 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.stereotype.Component;
 
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
+import com.OficinaDeSoftware.EmissorCertificadosBackend.converter.UserConverter;
 import com.OficinaDeSoftware.EmissorCertificadosBackend.dto.CredentialsDto;
 import com.OficinaDeSoftware.EmissorCertificadosBackend.dto.UserDto;
+import com.OficinaDeSoftware.EmissorCertificadosBackend.model.RoleEnum;
+import com.OficinaDeSoftware.EmissorCertificadosBackend.service.UserService;
 import com.OficinaDeSoftware.EmissorCertificadosBackend.service.auth.AuthenticationService;
 
 import jakarta.annotation.PostConstruct;
@@ -30,6 +36,14 @@ public class UserAuthenticationProvider {
 
     @Autowired
     private AuthenticationService authenticationService; 
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private UserConverter userConverter;
+
+    private String DS_TAG_ROLES = "roles";
 
     @PostConstruct
     protected void init(){
@@ -45,6 +59,7 @@ public class UserAuthenticationProvider {
         return JWT.create()
                 .withIssuer(user.getNrUuid())
                 .withIssuedAt(now)
+                .withClaim( DS_TAG_ROLES, RoleEnum.toString( user.getRoles() ) )
                 .withExpiresAt(validity)
                 .sign(algorithm);
     }
@@ -60,16 +75,27 @@ public class UserAuthenticationProvider {
 
         JWTVerifier verifier = JWT.require( algorithm ).build();
 
-        DecodedJWT decoded = verifier.verify( token );
+        final DecodedJWT decoded = verifier.verify( token );
 
-        UserDto user = authenticationService.findByNrUuid( decoded.getIssuer() );
+        final UserDto user = userConverter.convertToDto( userService.findByNrUuid( decoded.getIssuer() ) );
 
-        return new UsernamePasswordAuthenticationToken( user, null, Collections.emptyList() );
+        if( user == null ) {
+            throw new RuntimeException("Invalid login");
+        }
+
+        final List<SimpleGrantedAuthority> authorityList = Arrays.stream( decoded.getClaim( DS_TAG_ROLES ).asArray( String.class ) ).map( SimpleGrantedAuthority::new ).collect( Collectors.toList() );
+
+        return new UsernamePasswordAuthenticationToken( user, null, authorityList );
+    }
+
+    private List<SimpleGrantedAuthority> rolesEnumToSimpleGrantedAuthority( List<RoleEnum> roles ) {
+        return roles.stream().map( current -> new SimpleGrantedAuthority( current.name() ) ).collect( Collectors.toList() );
     }
 
     public Authentication validateCredentials( CredentialsDto credentialsDto ) throws RuntimeException {
-        UserDto user = authenticationService.authenticate( credentialsDto );
-        return new UsernamePasswordAuthenticationToken( user, null, Collections.emptyList() );
+        final UserDto user = authenticationService.authenticate( credentialsDto );
+        final List<SimpleGrantedAuthority> authorityList = rolesEnumToSimpleGrantedAuthority( user.getRoles() );
+        return new UsernamePasswordAuthenticationToken( user, null, authorityList );
     }
 
 }

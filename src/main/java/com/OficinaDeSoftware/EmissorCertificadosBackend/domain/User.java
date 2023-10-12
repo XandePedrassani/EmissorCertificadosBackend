@@ -1,21 +1,27 @@
 package com.OficinaDeSoftware.EmissorCertificadosBackend.domain;
 
+import java.util.List;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.OficinaDeSoftware.EmissorCertificadosBackend.model.RoleEnum;
+
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.EnumType;
+
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Document( collection = "user")
 public class User {
-
-    public User( String nrUuid, String name, String email ){
-        this.nrUuid = nrUuid;
-        this.name = name;
-        this.email = email;
-    }
 
     @Id
     private String nrUuid;
@@ -25,4 +31,8 @@ public class User {
 
     @Email
     private String email;
+
+    @Enumerated(EnumType.STRING)
+    private List<RoleEnum> roles;
+    
 }

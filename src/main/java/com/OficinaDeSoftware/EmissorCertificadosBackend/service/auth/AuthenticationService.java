@@ -1,14 +1,18 @@
 package com.OficinaDeSoftware.EmissorCertificadosBackend.service.auth;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import com.OficinaDeSoftware.EmissorCertificadosBackend.converter.UserConverter;
 import com.OficinaDeSoftware.EmissorCertificadosBackend.domain.User;
 import com.OficinaDeSoftware.EmissorCertificadosBackend.dto.CredentialsDto;
 import com.OficinaDeSoftware.EmissorCertificadosBackend.dto.UserDto;
 import com.OficinaDeSoftware.EmissorCertificadosBackend.model.ProviderEnum;
 import com.OficinaDeSoftware.EmissorCertificadosBackend.model.ProviderModel;
+import com.OficinaDeSoftware.EmissorCertificadosBackend.model.RoleEnum;
 import com.OficinaDeSoftware.EmissorCertificadosBackend.service.UserService;
 import com.OficinaDeSoftware.EmissorCertificadosBackend.service.auth.Provider.ProviderTokenService;
 
@@ -20,6 +24,9 @@ public class AuthenticationService {
 
     @Autowired
     private ProviderTokenService providerTokenService;
+
+    @Autowired
+    private UserConverter userConverter;
 
     // TODO o certo era isso ser dinâmico, ter os outros services no caso, mas o factory parece não funcionar nesse caso, por conta do @Autowired  
     public AuthenticationService( @Qualifier("googleProviderTokenService") ProviderTokenService providerToken ){
@@ -34,24 +41,21 @@ public class AuthenticationService {
 
         final ProviderModel provider = providerTokenService.process( credentialsDto.getIdToken() );
 
-        // TODO trocar por ModelMapper 
-        final UserDto userDto = new UserDto( provider.getNrUuid(), provider.getEmail(), provider.getName() );
+        final User registeredUser = userService.findByNrUuid( provider.getNrUuid() );
 
+        if( registeredUser != null ){
+            return userConverter.convertToDto( registeredUser );
+        }
+
+        return registerUser( provider );
+    }
+
+    public UserDto registerUser( final ProviderModel provider ) {
+
+        UserDto userDto = userConverter.convertToDto( provider );
+        userDto.setRoles( Arrays.asList( RoleEnum.ROLE_USER ) );
         userService.save( userDto );
 
         return userDto;
     }
-
-    public UserDto findByNrUuid( String nrUuid ) {
-
-        final User user = userService.findByNrUuid( nrUuid );
-
-        if( user == null ){
-            throw new RuntimeException("Invalid login");
-        }
-
-        // TODO trocar por ModelMapper 
-        return new UserDto( user.getNrUuid(), user.getEmail(), user.getName() );
-    }
-
 }
