@@ -2,9 +2,17 @@ package com.OficinaDeSoftware.EmissorCertificadosBackend.dto;
 
 import jakarta.validation.constraints.NotNull;
 
+import com.OficinaDeSoftware.EmissorCertificadosBackend.model.RoleEnum;
+
 import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserDto {
     
     @NotNull
@@ -17,10 +25,6 @@ public class UserDto {
 
     private String accessToken;
 
-    public UserDto( String nrUuid, String email, String name ){
-        this.nrUuid = nrUuid;
-        this.email = email;
-        this.name = name;
-    }
-
+    @NotNull
+    private List<RoleEnum> roles;
 }
