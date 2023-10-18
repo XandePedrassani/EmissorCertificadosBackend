@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.EnumType;
@@ -20,17 +20,21 @@ import jakarta.persistence.EnumType;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document( collection = "user")
+@Document(collection = "user")
 public class User {
 
     @Id
     private String nrUuid;
 
-    @NotNull
+    @NotBlank
     private String name;
 
     @Email
     private String email;
+
+    private String urlImagemPerfil;
+
+    private Integer tipousuario;
 
     @Enumerated(EnumType.STRING)
     private List<RoleEnum> roles;

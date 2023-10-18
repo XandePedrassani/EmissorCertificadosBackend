@@ -23,13 +23,11 @@ public class AuthenticationService {
     private UserService userService;
 
     @Autowired
-    private ProviderTokenService providerTokenService;
-
-    @Autowired
     private UserConverter userConverter;
 
-    // TODO o certo era isso ser dinâmico, ter os outros services no caso, mas o factory parece não funcionar nesse caso, por conta do @Autowired  
-    public AuthenticationService( @Qualifier("googleProviderTokenService") ProviderTokenService providerToken ){
+    private ProviderTokenService providerTokenService;
+
+    public AuthenticationService( ProviderTokenService providerToken ){
         this.providerTokenService = providerToken;
     }
     
