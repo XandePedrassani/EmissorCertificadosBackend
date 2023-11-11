@@ -11,11 +11,9 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.gson.GsonFactory;
 
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 
-@Service
-@Qualifier("googleProviderTokenService")
+@Service("googleProviderTokenService")
 public class GoogleProviderTokenService implements ProviderTokenService {
 
     @Value("${spring.security.oauth2.client.registration.google.clientId}")
