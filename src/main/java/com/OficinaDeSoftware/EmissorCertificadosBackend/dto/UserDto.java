@@ -17,14 +17,12 @@ public class UserDto {
     
     @NotNull
     private String nrUuid;
-    
+    private String name;
     @NotNull
     private String email;
-
-    private String name;
-
+    private String urlImagemPerfil;
+    private Integer tipousuario;
     private String accessToken;
-
     @NotNull
     private List<RoleEnum> roles;
 }
