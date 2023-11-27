@@ -1,8 +1,6 @@
-package com.OficinaDeSoftware.EmissorCertificadosBackend.domain;
+package com.OficinaDeSoftware.EmissorCertificadosBackend.dto;
 
 import java.time.LocalDate;
-
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
@@ -12,8 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "certificado")
-public class Certificado {
+public class CertificadoDto {
     
     @Id
     private String idCertificado;

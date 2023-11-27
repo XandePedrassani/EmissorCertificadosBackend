@@ -1,5 +1,7 @@
 package com.OficinaDeSoftware.EmissorCertificadosBackend.converter;
 
+import java.util.Objects;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -16,31 +18,20 @@ public class UserConverter {
 
   public UserDto convertToDto( final ProviderModel provider ){
 
-    if( provider == null ){
-      return null;
-    }
-
-    return modelMapper.map( provider, UserDto.class );
+    return Objects.isNull(provider) ? null : modelMapper.map( provider, UserDto.class );
     
   }
 
   public UserDto convertToDto( final User user ) {
 
-    if( user == null ) {
-      return null;
-    }
+    return Objects.isNull(user) ? null : modelMapper.map( user, UserDto.class );
 
-    return modelMapper.map( user, UserDto.class );
   } 
 
   public User convertToEntity( final UserDto dto ) {
 
-    if( dto == null ) {
-      return null;
-    }
-
-    return modelMapper.map( dto, User.class );
-
+    return Objects.isNull(dto) ? null : modelMapper.map( dto, User.class );
+    
   }
 
 }

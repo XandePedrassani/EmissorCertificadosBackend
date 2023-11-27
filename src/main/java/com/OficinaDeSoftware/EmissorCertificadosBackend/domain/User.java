@@ -25,17 +25,12 @@ public class User {
 
     @Id
     private String nrUuid;
-
     @NotBlank
     private String name;
-
     @Email
     private String email;
-
     private String urlImagemPerfil;
-
     private Integer tipousuario;
-
     @Enumerated(EnumType.STRING)
     private List<RoleEnum> roles;
     

@@ -7,9 +7,9 @@ import com.OficinaDeSoftware.EmissorCertificadosBackend.converter.UserConverter;
 import com.OficinaDeSoftware.EmissorCertificadosBackend.domain.User;
 import com.OficinaDeSoftware.EmissorCertificadosBackend.dto.UserDto;
 import com.OficinaDeSoftware.EmissorCertificadosBackend.repository.UserRepository;
+import com.OficinaDeSoftware.EmissorCertificadosBackend.service.exception.ObjectNotFoundException;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserService {
@@ -24,19 +24,12 @@ public class UserService {
         return repository.findAll();
     }
 
-    public void save( final UserDto userDto ){
-        this.repository.save( userConverter.convertToEntity( userDto ) );
+    public void save(final UserDto userDto) {
+        this.repository.save(userConverter.convertToEntity(userDto));
     }
 
-    public User findByNrUuid( final String nrUuid ){
-
-        Optional<User> user = this.repository.findById( nrUuid );
-
-        if( user.isPresent() ){
-            return user.get();
-        }
-
-        return null;
+    public User findByNrUuid(final String nrUuid) {
+        return repository.findById(nrUuid).orElseThrow(() -> new ObjectNotFoundException("Usuário não encontrado"));
     }
     
 }

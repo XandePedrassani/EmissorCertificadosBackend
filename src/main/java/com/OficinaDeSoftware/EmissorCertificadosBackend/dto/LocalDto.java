@@ -1,6 +1,4 @@
-package com.OficinaDeSoftware.EmissorCertificadosBackend.domain;
-
-import org.springframework.data.mongodb.core.mapping.Document;
+package com.OficinaDeSoftware.EmissorCertificadosBackend.dto;
 
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
@@ -10,8 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "local")
-public class Local {
+public class LocalDto {
     
     @Id
     private String idLocal;
