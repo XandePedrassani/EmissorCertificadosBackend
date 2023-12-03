@@ -17,6 +17,7 @@ public class Certificado {
     
     @Id
     private String idCertificado;
+    private String idEvento;
     private String idLocal;
     private String urlLogo;
     private String dsCertificado;
@@ -25,6 +26,8 @@ public class Certificado {
     private Integer nrCargaHoraria;
     private String dsTitulo;
     private String dsNomeEvento;
-    private String xmlCertificado;
+    private String htmlCertificado;
     private String idCertificadoModelo;
+    private String modelo;
+    private PersonalData personalData;
 }

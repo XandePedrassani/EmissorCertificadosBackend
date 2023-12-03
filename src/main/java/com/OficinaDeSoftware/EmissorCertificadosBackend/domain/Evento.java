@@ -1,10 +1,13 @@
 package com.OficinaDeSoftware.EmissorCertificadosBackend.domain;
 
-import java.time.LocalDateTime;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,4 +27,13 @@ public class Evento {
     private String dsInformacoes;
     private String nrUuidResponsavel;
     private String idLocal;
+
+    @Transient
+    List<User> participantes;
+
+    @Transient
+    private List<DateEvent> dates;
+
+    @Transient
+    private Certificado certificado;
 }

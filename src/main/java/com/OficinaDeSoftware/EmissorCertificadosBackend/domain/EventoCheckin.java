@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Document(collection = "eventocheckin")
 public class EventoCheckin {
     
-    @Id
+    @Id 
     private String idEventoCheckin;
     private LocalDateTime dhCheckin;
     private LocalDateTime dhCheckout;

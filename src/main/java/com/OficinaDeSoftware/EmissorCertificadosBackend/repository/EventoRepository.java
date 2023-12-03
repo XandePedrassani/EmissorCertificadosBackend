@@ -8,5 +8,7 @@ import com.OficinaDeSoftware.EmissorCertificadosBackend.domain.Evento;
 
 public interface EventoRepository extends MongoRepository<Evento, String> {
 
-    List<Evento> findAllPersonalizado();
+    List<Evento> findAllByNrUuidResponsavel( String nrUuidResponsavel );
+
+    // List<Evento> findAllPersonalizado();
 }
