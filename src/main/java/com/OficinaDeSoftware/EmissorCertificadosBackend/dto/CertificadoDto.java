@@ -55,6 +55,6 @@ public class CertificadoDto {
     @JsonIgnore
     private String idCertificadoModelo;
 
-    @JsonProperty( "personalData" )
-    private PersonalDataDto personalData;
+   // @JsonProperty( "personalData" )
+   // private PersonalDataDto personalData;
 }

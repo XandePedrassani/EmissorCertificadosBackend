@@ -1,22 +1,20 @@
 package com.OficinaDeSoftware.EmissorCertificadosBackend.domain;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-import org.springframework.data.mongodb.core.mapping.Document;
-
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
+import jakarta.persistence.*;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Document(collection = "certificado")
-public class Certificado {
-    
+@Entity
+@SequenceGenerator(name = "seq_certificado", sequenceName = "seq_certificado", allocationSize = 1, initialValue = 1)
+public class Certificado implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     @Id
-    private String idCertificado;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_certificado")
+    private Long idCertificado;
     private String idEvento;
     private String idLocal;
     private String urlLogo;
@@ -29,5 +27,5 @@ public class Certificado {
     private String htmlCertificado;
     private String idCertificadoModelo;
     private String modelo;
-    private PersonalData personalData;
+    //private PersonalData personalData;
 }

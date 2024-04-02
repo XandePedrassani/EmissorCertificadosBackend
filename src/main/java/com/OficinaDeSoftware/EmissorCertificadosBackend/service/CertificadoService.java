@@ -25,15 +25,15 @@ public class CertificadoService {
         return repository.findAll();
     }
 
-    public Certificado findById(String codigo) {
+    public Certificado findById(Long codigo) {
         return repository.findById(codigo).orElseThrow(() -> new ObjectNotFoundException("Certificado não encontrado"));
     }
 
     public Certificado insert(CertificadoDto certificado) {
-        return repository.insert(converter.convertToEntity(certificado));
+        return repository.save(converter.convertToEntity(certificado));
     }
 
-    public Certificado update(CertificadoDto certificado) {
+    /*public Certificado update(CertificadoDto certificado) {
         Certificado certificadoAtualizado = findById(certificado.getIdCertificado());
         BeanUtils.copyProperties(certificado, certificadoAtualizado);
         return repository.save(certificadoAtualizado);
@@ -42,5 +42,5 @@ public class CertificadoService {
     public void delete(String codigo) {
         findById(codigo);
         repository.deleteById(codigo);
-    }
+    }*/
 }
