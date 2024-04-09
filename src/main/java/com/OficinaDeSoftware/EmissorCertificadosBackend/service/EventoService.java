@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.OficinaDeSoftware.EmissorCertificadosBackend.converter.EventoConverter;
-import com.OficinaDeSoftware.EmissorCertificadosBackend.domain.Certificado;
+import com.OficinaDeSoftware.EmissorCertificadosBackend.dto_PgAdmin.Certificado;
 import com.OficinaDeSoftware.EmissorCertificadosBackend.domain.DateEvent;
 import com.OficinaDeSoftware.EmissorCertificadosBackend.domain.Evento;
 import com.OficinaDeSoftware.EmissorCertificadosBackend.domain.EventoParticipante;
@@ -17,7 +17,7 @@ import com.OficinaDeSoftware.EmissorCertificadosBackend.domain.EventoPersonaliza
 import com.OficinaDeSoftware.EmissorCertificadosBackend.domain.Local;
 import com.OficinaDeSoftware.EmissorCertificadosBackend.domain.User;
 import com.OficinaDeSoftware.EmissorCertificadosBackend.dto.EventoDto;
-import com.OficinaDeSoftware.EmissorCertificadosBackend.repository.CertificadoRepository;
+import com.OficinaDeSoftware.EmissorCertificadosBackend.repository_pgAdmin.CertificadoRepository;
 import com.OficinaDeSoftware.EmissorCertificadosBackend.repository.DateEventRepository;
 import com.OficinaDeSoftware.EmissorCertificadosBackend.repository.EventoRepository;
 import com.OficinaDeSoftware.EmissorCertificadosBackend.service.exception.ObjectNotFoundException;

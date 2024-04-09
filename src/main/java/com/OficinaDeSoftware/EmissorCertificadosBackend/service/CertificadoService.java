@@ -2,14 +2,13 @@ package com.OficinaDeSoftware.EmissorCertificadosBackend.service;
 
 import java.util.List;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.OficinaDeSoftware.EmissorCertificadosBackend.converter.CertificadoConverter;
-import com.OficinaDeSoftware.EmissorCertificadosBackend.domain.Certificado;
+import com.OficinaDeSoftware.EmissorCertificadosBackend.dto_PgAdmin.Certificado;
 import com.OficinaDeSoftware.EmissorCertificadosBackend.dto.CertificadoDto;
-import com.OficinaDeSoftware.EmissorCertificadosBackend.repository.CertificadoRepository;
+import com.OficinaDeSoftware.EmissorCertificadosBackend.repository_pgAdmin.CertificadoRepository;
 import com.OficinaDeSoftware.EmissorCertificadosBackend.service.exception.ObjectNotFoundException;
 
 @Service

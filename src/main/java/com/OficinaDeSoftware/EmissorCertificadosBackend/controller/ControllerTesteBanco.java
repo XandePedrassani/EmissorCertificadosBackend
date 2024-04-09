@@ -1,12 +1,8 @@
 package com.OficinaDeSoftware.EmissorCertificadosBackend.controller;
 
-import com.OficinaDeSoftware.EmissorCertificadosBackend.domain.Certificado;
-import com.OficinaDeSoftware.EmissorCertificadosBackend.dto.CertificadoDto;
-import com.OficinaDeSoftware.EmissorCertificadosBackend.dto.EventoDto;
-import com.OficinaDeSoftware.EmissorCertificadosBackend.repository.CertificadoRepository;
-import com.OficinaDeSoftware.EmissorCertificadosBackend.service.CertificadoService;
+import com.OficinaDeSoftware.EmissorCertificadosBackend.dto_PgAdmin.Certificado;
+import com.OficinaDeSoftware.EmissorCertificadosBackend.repository_pgAdmin.CertificadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
